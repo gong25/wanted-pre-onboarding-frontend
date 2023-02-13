@@ -5,7 +5,7 @@ import routes from "./routes";
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLICK_URL}>
       <div className="App">
         <Navbar />
         <Routes>
