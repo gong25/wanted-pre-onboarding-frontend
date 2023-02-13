@@ -36,8 +36,6 @@ const SignUp = () => {
         }
       )
       .then((response) => {
-        alert(response.status);
-        alert(typeof response.status);
         if (response.status === 201) {
           navigate("/signin");
         }
@@ -46,7 +44,7 @@ const SignUp = () => {
 
   return (
     <>
-      <h1>회원가입페이지</h1>
+      <h1>회원가입</h1>
       <div>
         <input
           type="text"
