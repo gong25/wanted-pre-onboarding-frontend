@@ -36,9 +36,24 @@ const SignIn = () => {
         }
       )
       .then((response) => {
-        if (response.status === 200) {
+        const status = response.status;
+        if (status === 200) {
           localStorage.setItem("authToken", response.data.access_token);
           navigate("/todo");
+        }
+      })
+      .catch((error) => {
+        const status = error.response.status;
+        switch (status) {
+          case 404:
+            alert("이메일이 존재하지 않습니다.");
+            break;
+          case 401:
+            alert("비밀번호가 틀렸습니다.");
+            break;
+          default:
+            alert("알수없는 오류가 발생했습니다.");
+            break;
         }
       });
   };
