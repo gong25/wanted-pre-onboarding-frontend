@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import ShowTodo from "../components/ShowTodo";
+
 const TodoList = () => {
   const baseUrl = process.env.REACT_APP_API_URL;
   const authToken = localStorage.getItem("authToken");
@@ -56,37 +58,37 @@ const TodoList = () => {
       )
       .then((response) => {
         if (response.status === 201) {
-          getTodos();
+          setTodoList([...todoList, response.data]);
+          setInputTodo("");
         }
       });
   };
 
-  const updateTodo = (id, value) => {
-    const thisTodo = todoList.filter((todo) => {
-      return todo.id === id;
-    });
-
+  const deleteTodo = (id) => {
+    console.log("삭제", id);
     axios
-      .put(
-        `${baseUrl}/todos/${id}`,
-        {
-          todo: thisTodo[0].todo,
-          isCompleted: value,
+      .delete(`${baseUrl}/todos/${id}`, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${authToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      })
       .then((response) => {
-        if (response.status === 200) {
-          console.log(response);
-          getTodos();
+        if (response.status === 204) {
+          console.log("삭제된아이디", id);
+          setTodoList(
+            todoList.filter((todo) => {
+              return todo.id !== id;
+            })
+          );
         }
       });
   };
+
+  const renderTodoList = todoList.length
+    ? todoList.map((todo) => {
+        return <ShowTodo todo={todo} deleteTodo={deleteTodo} key={todo.id} />;
+      })
+    : "Todo가 없습니다.";
 
   return (
     <>
@@ -102,18 +104,7 @@ const TodoList = () => {
           추가
         </button>
       </div>
-      <div style={{ padding: "20px" }}>
-        {todoList.map((todo) => {
-          return (
-            <li key={todo.id}>
-              <input type="checkbox" value={todo.isCompleted} onChange={(e) => updateTodo(todo.id, e.target.checked)} />
-              {todo.todo}
-              <button>수정</button>
-              <button>삭제</button>
-            </li>
-          );
-        })}
-      </div>
+      <div style={{ padding: "20px" }}>{renderTodoList}</div>
     </>
   );
 };
