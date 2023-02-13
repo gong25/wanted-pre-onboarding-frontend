@@ -1,13 +1,28 @@
 import axios from "axios";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const TodoList = () => {
-  const baseUrl = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+
   useEffect(() => {
-    axios.get(`${baseUrl}/todos`).then((response) => {
-      console.log(response);
-    }, []);
-  });
+    const baseUrl = process.env.REACT_APP_API_URL;
+    const authToken = localStorage.getItem("authToken");
+
+    if (authToken) {
+      axios
+        .get(`${baseUrl}/todos`, {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        });
+    } else {
+      navigate("/signin");
+    }
+  }, []);
 
   return (
     <>
