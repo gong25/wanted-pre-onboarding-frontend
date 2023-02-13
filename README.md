@@ -10,5 +10,5 @@ https://gong25.github.io/wanted-pre-onboarding-frontend/
 
 ## 테스트용 로그인 이메일
 
-email: testgong@test.com
+email: testgong@test.com  
 password: 11111111
