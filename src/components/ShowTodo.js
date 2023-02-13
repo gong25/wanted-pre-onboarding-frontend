@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 const baseUrl = process.env.REACT_APP_API_URL;
@@ -34,11 +34,9 @@ const ShowTodo = (props) => {
       });
   };
 
-  const updateIsCompleted = () => {
-    setIsCompleted(!isCompleted);
-    console.log(isCompleted);
-    // updateTodo();
-  };
+  useEffect(() => {
+    updateTodo();
+  }, [isCompleted]);
 
   const renderTodo = isUpdate ? (
     <input data-testid="modify-input" value={tempTodo} onChange={(e) => setTempTodo(e.target.value)} />
@@ -65,10 +63,15 @@ const ShowTodo = (props) => {
     </button>
   );
 
+  const activeCss = {
+    textDecoration: "line-through ",
+    color: "grey",
+  };
+
   return (
     <li key={props.todo.id}>
-      <input type="checkbox" value={props.todo.isCompleted} onChange={updateIsCompleted} />
-      {renderTodo}
+      <input type="checkbox" checked={isCompleted} onChange={(e) => setIsCompleted(e.target.checked)} />
+      <span style={isCompleted ? activeCss : undefined}>{renderTodo}</span>
       {renderUpdateButton}
       {renderDeleteButton}
     </li>

@@ -29,21 +29,6 @@ const TodoList = () => {
   const [todoList, setTodoList] = useState([]);
   const [inputTodo, setInputTodo] = useState("");
 
-  const getTodos = () => {
-    axios
-      .get(`${baseUrl}/todos`, {
-        headers: {
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          setTodoList(response.data);
-        }
-      });
-  };
-
   const createTodo = () => {
     axios
       .post(
