@@ -38,7 +38,7 @@ const SignIn = () => {
       .then((response) => {
         if (response.status === 200) {
           localStorage.setItem("authToken", response.data.access_token);
-          navigate("/todolist");
+          navigate("/todo");
         }
       });
   };

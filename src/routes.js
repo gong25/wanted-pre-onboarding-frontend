@@ -17,7 +17,7 @@ const router = [
     element: <SignUp />,
   },
   {
-    path: "/todolist",
+    path: "/todo",
     element: <TodoList />,
   },
 ];
