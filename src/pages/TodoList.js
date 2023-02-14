@@ -50,7 +50,6 @@ const TodoList = () => {
   };
 
   const deleteTodo = (id) => {
-    console.log("삭제", id);
     axios
       .delete(`${baseUrl}/todos/${id}`, {
         headers: {
@@ -59,7 +58,6 @@ const TodoList = () => {
       })
       .then((response) => {
         if (response.status === 204) {
-          console.log("삭제된아이디", id);
           setTodoList(
             todoList.filter((todo) => {
               return todo.id !== id;
