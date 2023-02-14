@@ -1,11 +1,11 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import routes from "./routes";
 
 function App() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Router>
       <div className="App">
         <Navbar />
         <Routes>
@@ -14,7 +14,7 @@ function App() {
           })}
         </Routes>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
