@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 
 import axios from "axios";
-const baseUrl = process.env.REACT_APP_API_URL;
-const authToken = localStorage.getItem("authToken");
 
 const ShowTodo = (props) => {
+  const baseUrl = process.env.REACT_APP_API_URL;
+  const authToken = localStorage.getItem("authToken");
+
   const [todo, setTodo] = useState(props.todo.todo);
   const [tempTodo, setTempTodo] = useState(props.todo.todo);
   const [isCompleted, setIsCompleted] = useState(props.todo.isCompleted);
